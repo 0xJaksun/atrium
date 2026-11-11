@@ -10,8 +10,10 @@ struct AtriumApp: App {
             AppLayout()
                 .environment(navigation)
                 .frame(minWidth: 980, minHeight: 640)
+                .toolbar { Color.clear }
         }
         .windowStyle(.hiddenTitleBar)
+        .windowToolbarStyle(.unified(showsTitle: false))
         .defaultSize(width: 1200, height: 700)
     }
 }
