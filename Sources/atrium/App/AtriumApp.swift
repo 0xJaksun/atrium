@@ -3,10 +3,12 @@ import SwiftUI
 @main
 struct AtriumApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate: AppDelegate
+    @State private var navigation: Navigation = Navigation()
 
     var body: some Scene {
         Window("Atrium", id: "main") {
-            MainView()
+            AppLayout()
+                .environment(navigation)
                 .frame(minWidth: 980, minHeight: 640)
         }
         .windowStyle(.hiddenTitleBar)
