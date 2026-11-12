@@ -12,9 +12,12 @@ enum Theme {
 
     static let body: Font = Font.system(size: 13)
     static let bodyStrong: Font = Font.system(size: 13, weight: .semibold)
+    static let title: Font = Font.system(size: 28, weight: .semibold, design: .serif)
 
     static let gutter: CGFloat = 16
     static let topInset: CGFloat = 52
+    static let margin: CGFloat = 40
+    static let section: CGFloat = 32
 
     static let sidebarWidth: CGFloat = 228
     static let rowRadius: CGFloat = 7
