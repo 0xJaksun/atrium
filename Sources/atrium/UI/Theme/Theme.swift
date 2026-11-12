@@ -3,6 +3,7 @@ import SwiftUI
 enum Theme {
     static let text1: Color = Color.primary
     static let text2: Color = Color.secondary
+    static let text3: Color = Color(nsColor: .tertiaryLabelColor)
     static let hairline: Color = Color(nsColor: .separatorColor)
 
     static let canvas: Color = Color(nsColor: .textBackgroundColor)

@@ -6,16 +6,20 @@ struct TasksView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Theme.section) {
-                Text("Tasks")
-                    .font(Theme.title)
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Tasks")
+                        .font(Theme.title)
+                    Text(summary)
+                        .font(Theme.body)
+                        .foregroundStyle(Theme.text2)
+                }
 
                 VStack(alignment: .leading, spacing: 2) {
                     ForEach(taskStore.tasks) { (task: TaskItem) in
-                        Text(task.title)
-                            .font(Theme.body)
-                            .foregroundStyle(task.isDone ? Theme.text2 : Theme.text1)
-                            .strikethrough(task.isDone)
-                            .frame(height: 32)
+                        TaskRow(task: task) {
+                            withAnimation(.smooth(duration: 0.2)) { taskStore.toggleDone(task) }
+                        }
+                        .padding(.horizontal, -8)
                     }
                 }
             }
@@ -25,5 +29,10 @@ struct TasksView: View {
             .padding(.bottom, Theme.margin)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+    }
+
+    private var summary: String {
+        let open: Int = taskStore.tasks.count { !$0.isDone }
+        return open == 0 ? "All done" : "\(open) open"
     }
 }
