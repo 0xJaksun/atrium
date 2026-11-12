@@ -1,7 +1,7 @@
 import Foundation
 
 struct TaskItem: Identifiable {
-    let id: UUID = UUID()
+    let id: String
     var title: String
     var isDone: Bool = false
 }
