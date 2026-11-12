@@ -1,11 +1,3 @@
-import Observation
-
-@Observable
-@MainActor
-final class Navigation {
-    var route: Route = Route.today
-}
-
 enum Route: CaseIterable, Identifiable {
     case today, tasks, calendar
 

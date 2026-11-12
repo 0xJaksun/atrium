@@ -16,16 +16,16 @@ struct Sidebar: View {
 }
 
 struct SidebarLink: View {
-    @Environment(Navigation.self) private var navigation: Navigation
+    @Environment(Router.self) private var router: Router
     let route: Route
 
     var body: some View {
         SidebarRow(
             title: route.title,
             symbol: route.symbol,
-            isSelected: navigation.route == route
+            isSelected: router.route == route
         ) {
-            navigation.route = route
+            router.route = route
         }
     }
 }

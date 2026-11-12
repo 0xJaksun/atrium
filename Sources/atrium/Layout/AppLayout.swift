@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct AppLayout: View {
-    @Environment(Navigation.self) private var navigation: Navigation
+struct AppLayout<Content: View>: View {
+    @ViewBuilder let content: Content
 
     var body: some View {
         HStack(spacing: 0) {
@@ -9,7 +9,7 @@ struct AppLayout: View {
             Rectangle()
                 .fill(Theme.hairline)
                 .frame(width: 1)
-            Text(navigation.route.title)
+            content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Theme.canvas)
         }

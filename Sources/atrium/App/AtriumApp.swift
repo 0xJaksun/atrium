@@ -3,12 +3,12 @@ import SwiftUI
 @main
 struct AtriumApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate: AppDelegate
-    @State private var navigation: Navigation = Navigation()
+    @State private var router: Router = Router()
 
     var body: some Scene {
         Window("Atrium", id: "main") {
-            AppLayout()
-                .environment(navigation)
+            AppLayout { RouteView(route: router.route) }
+                .environment(router)
                 .frame(minWidth: 980, minHeight: 640)
                 .toolbar { Color.clear }
         }
