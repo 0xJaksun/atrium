@@ -13,6 +13,7 @@ enum Theme {
 
     static let body: Font = Font.system(size: 13)
     static let bodyStrong: Font = Font.system(size: 13, weight: .semibold)
+    static let caption: Font = Font.system(size: 11)
     static let title: Font = Font.system(size: 28, weight: .semibold, design: .serif)
 
     static let gutter: CGFloat = 16

@@ -5,6 +5,14 @@ struct TaskItem: Identifiable, Equatable, Sendable {
 
     var title: String
     var isDone: Bool = false
+    var listName: String? = nil
+    var listColor: RGB? = nil
+}
+
+struct RGB: Equatable, Sendable {
+    let red: Double
+    let green: Double
+    let blue: Double
 }
 
 enum TaskChange: Equatable, Sendable {

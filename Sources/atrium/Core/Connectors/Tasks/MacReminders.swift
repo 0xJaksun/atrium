@@ -2,14 +2,16 @@ import AppKit
 import EventKit
 
 actor MacReminders: TaskSource {
-    nonisolated let id: String = "mac-reminders"
+    static let sourceId: String = "mac-reminders"
+
+    nonisolated let id: String = MacReminders.sourceId
     nonisolated let name: String = "Reminders"
 
     let store: EKEventStore = EKEventStore()
 
     func fetch() async throws -> [TaskItem] {
         try await ensureAccess()
-        return await allReminders().map(toTaskItem)
+        return await allReminders()
     }
 
     func apply(_ change: TaskChange, to task: TaskItem) async throws {
@@ -43,14 +45,5 @@ actor MacReminders: TaskSource {
         default:
             throw SourceError.needsPermission
         }
-    }
-
-    private func toTaskItem(_ reminder: Reminder) -> TaskItem {
-        TaskItem(
-            sourceId: id,
-            sourceItemId: reminder.id,
-            title: reminder.title,
-            isDone: reminder.isDone
-        )
     }
 }
