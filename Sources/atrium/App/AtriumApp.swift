@@ -4,7 +4,7 @@ import SwiftUI
 struct AtriumApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate: AppDelegate
     @State private var router: Router = Router()
-    @State private var taskStore: TaskStore = TaskStore()
+    @State private var taskStore: TaskStore = TaskStore(sources: [SampleTasks(), MacReminders()])
 
     var body: some Scene {
         Window("Atrium", id: "main") {
