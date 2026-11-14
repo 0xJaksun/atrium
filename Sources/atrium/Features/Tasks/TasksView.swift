@@ -2,6 +2,7 @@ import SwiftUI
 
 struct TasksView: View {
     @Environment(TaskStore.self) private var taskStore: TaskStore
+    @Environment(Router.self) private var router: Router
 
     var body: some View {
         ScrollView {
@@ -47,34 +48,24 @@ struct TasksView: View {
         return open == 0 ? "All done" : "\(open) open"
     }
 
+    private var hasWorkingConnection: Bool {
+        taskStore.connections.contains { $0.state == .connected }
+    }
+
     @ViewBuilder
     private var emptyState: some View {
-        if let blocked: TaskStore.Connection = taskStore.connections.first(where: {
-            $0.state == .needsAttention(.permission)
-        }) {
-            ContentUnavailableView {
-                Label("Can't see \(blocked.name)", systemImage: "lock")
-            } description: {
-                Text("Allow Atrium in System Settings, under Privacy & Security.")
-            } actions: {
-                Button("Open System Settings") {
-                    let link: String =
-                        "x-apple.systempreferences:com.apple.preference.security?Privacy_Reminders"
-                    if let url: URL = URL(string: link) {
-                        NSWorkspace.shared.open(url)
-                    }
-                }
-            }
-        } else if let offline: TaskStore.Connection = taskStore.connections.first(where: {
-            if case .offline = $0.state { true } else { false }
-        }) {
-            ContentUnavailableView {
-                Label("\(offline.name) isn't responding", systemImage: "wifi.slash")
-            } actions: {
-                Button("Try Again") { taskStore.retry(offline) }
-            }
-        } else if !taskStore.isLoading {
+        if taskStore.isLoading {
+            EmptyView()
+        } else if hasWorkingConnection {
             ContentUnavailableView("No Tasks", systemImage: "checkmark.circle")
+        } else {
+            ContentUnavailableView {
+                Label("Nothing connected", systemImage: Route.connections.symbol)
+            } description: {
+                Text("Connect an account to see your tasks here.")
+            } actions: {
+                Button("Open Connections") { router.route = .connections }
+            }
         }
     }
 }
