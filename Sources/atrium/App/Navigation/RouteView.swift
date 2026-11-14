@@ -8,6 +8,7 @@ struct RouteView: View {
         case .today: TodayView()
         case .tasks: TasksView()
         case .calendar: CalendarView()
+        case .connections: ConnectionsView()
         }
     }
 }
